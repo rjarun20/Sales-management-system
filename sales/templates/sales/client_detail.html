@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Client Details{% endblock %}
+
+{% block content %}
+<h1>Client Details</h1>
+<dl>
+    <dt>Client ID:</dt>
+    <dd>{{ client.client_id }}</dd>
+    <dt>Name:</dt>
+    <dd>{{ client.name }}</dd>
+    <dt>Contact Name:</dt>
+    <dd>{{ client.contact_name }}</dd>
+    <dt>Contact Number:</dt>
+    <dd>{{ client.contact_number }}</dd>
+    <dt>Email:</dt>
+    <dd>{{ client.email }}</dd>
+    <dt>Address:</dt>
+    <dd>{{ client.address_line1 }}<br>{{ client.address_line2 }}</dd>
+    <dt>Location:</dt>
+    <dd>{{ client.city }}, {{ client.state }}, {{ client.country }} - {{ client.code }}</dd>
+    <dt>Created By:</dt>
+    <dd>{{ client.created_by }} on {{ client.created_date }}</dd>
+    <dt>Last Updated By:</dt>
+    <dd>{{ client.updated_by }} on {{ client.updated_date }}</dd>
+</dl>
+<a href="{% url 'client_update' client.client_id %}" class="btn">Edit</a>
+<a href="{% url 'client_delete' client.client_id %}" class="btn">Delete</a>
+<a href="{% url 'client_list' %}" class="btn">Back to List</a>
+{% endblock %}

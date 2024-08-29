@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object_name }} List{% endblock %}
+
+{% block content %}
+    <h1>{{ object_name }} List</h1>
+    <a href="{% url create_url %}" class="btn">Add New {{ object_name }}</a>
+    <table>
+        <thead>
+            <tr>
+                {% for field in fields %}
+                    <th>{{ field|title }}</th>
+                {% endfor %}
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in objects %}
+                <tr>
+                    {% for field in fields %}
+                        <td>{{ object|getattribute:field }}</td>
+                    {% endfor %}
+                    <td>
+                        <a href="{% url detail_url object.id %}" class="btn">View</a>
+                        <a href="{% url edit_url object.id %}" class="btn">Edit</a>
+                        <a href="{% url delete_url object.id %}" class="btn">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

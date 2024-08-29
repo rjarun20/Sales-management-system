@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if object %}Edit{% else %}Create{% endif %} {{ object_name }}{% endblock %}
+
+{% block content %}
+    <h1>{% if object %}Edit{% else %}Create{% endif %} {{ object_name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="alert alert-error">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn">Save</button>
+    </form>
+    <a href="{% url list_url %}" class="btn">Cancel</a>
+{% endblock %}

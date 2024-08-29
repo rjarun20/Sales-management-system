@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object_name }} Detail{% endblock %}
+
+{% block content %}
+    <h1>{{ object_name }} Detail</h1>
+    <dl>
+        {% for field in fields %}
+            <dt>{{ field|title }}</dt>
+            <dd>{{ object|getattribute:field }}</dd>
+        {% endfor %}
+    </dl>
+    <a href="{% url edit_url object.id %}" class="btn">Edit</a>
+    <a href="{% url delete_url object.id %}" class="btn">Delete</a>
+    <a href="{% url list_url %}" class="btn">Back to List</a>
+{% endblock %}

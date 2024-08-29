@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<nav>
+    <ul>
+        <li><a href="{% url 'client_list' %}">Client Management</a></li>
+        <!-- Add other section links here -->
+    </ul>
+</nav>
+{% endblock %}
