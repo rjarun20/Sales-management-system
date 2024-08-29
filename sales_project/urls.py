@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from sales.views import LoginView, DashboardView
 from django.shortcuts import redirect
+from django.conf.urls.static import static
 
 # Function to redirect root URL to login page
 def redirect_to_login(request):

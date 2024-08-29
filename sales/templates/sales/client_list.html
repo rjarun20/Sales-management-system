@@ -1,34 +1,82 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Clients{% endblock %}
+{% block title %}Clients - TSV Global Solutions{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'sales/css/client_list.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>Clients</h1>
-<a href="{% url 'client_create' %}" class="btn">Add New Client</a>
-<table>
-    <thead>
-        <tr>
-            <th>Client ID</th>
-            <th>Name</th>
-            <th>Contact Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for client in clients %}
-        <tr>
-            <td>{{ client.client_id }}</td>
-            <td>{{ client.name }}</td>
-            <td>{{ client.contact_name }}</td>
-            <td>{{ client.email }}</td>
-            <td>
-                <a href="{% url 'client_detail' client.client_id %}" class="btn">View</a>
-                <a href="{% url 'client_update' client.client_id %}" class="btn">Edit</a>
-                <a href="{% url 'client_delete' client.client_id %}" class="btn">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="client-list-container">
+    <h1>Clients</h1>
+    
+    <div class="actions-bar">
+        <a href="{% url 'client_create' %}" class="btn btn-primary">Add New Client</a>
+        <div class="search-bar">
+            <input type="text" id="clientSearch" placeholder="Search clients...">
+            <button onclick="searchClients()" class="btn btn-secondary">Search</button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="clientTable">
+            <thead>
+                <tr>
+                    <th>Client ID</th>
+                    <th>Name</th>
+                    <th>Contact Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td>{{ client.client_id }}</td>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.contact_name }}</td>
+                    <td>{{ client.email }}</td>
+                    <td class="actions">
+                        <a href="{% url 'client_detail' client.client_id %}" class="btn btn-info">View</a>
+                        <a href="{% url 'client_update' client.client_id %}" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'client_delete' client.client_id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No clients found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function searchClients() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("clientSearch");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("clientTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        for (var j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+}
+</script>
 {% endblock %}

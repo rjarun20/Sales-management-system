@@ -1,7 +1,11 @@
 from django.urls import path
 from . import views
 
+#generate documentation
+
+
 urlpatterns = [
+    path('login/', views.LoginView.as_view(), name='login'),
     path('', views.ClientListView.as_view(), name='client_list'),
     path('create/', views.ClientCreateView.as_view(), name='client_create'),
     path('<str:client_id>/', views.ClientDetailView.as_view(), name='client_detail'),

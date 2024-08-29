@@ -160,4 +160,41 @@ header a:hover {
     color: #155724;
 }
 
-/* ... (rest of the styles) ... */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+header {
+    background: #fff;
+    color: #333;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header #branding {
+    display: flex;
+    align-items: center;
+}
+
+header #branding img.logo {
+    height: 50px;
+    margin-right: 1rem;
+}
+
+header #branding h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* ... rest of your existing styles ... */

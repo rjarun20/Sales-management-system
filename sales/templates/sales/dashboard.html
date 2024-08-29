@@ -1,13 +1,42 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Dashboard - TSV Global Solutions{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'sales/css/dashboard.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>Dashboard</h1>
-<nav>
-    <ul>
-        <li><a href="{% url 'client_list' %}">Client Management</a></li>
-        <!-- Add other section links here -->
-    </ul>
-</nav>
+<div class="dashboard">
+    <h1>Welcome, {{ user_name }}!</h1>
+    
+    <div class="dashboard-sections">
+        <div class="section-card">
+            <h2>Clients</h2>
+            <p>Manage your clients and their information.</p>
+            <a href="{% url 'client_list' %}" class="btn btn-outline">View Clients</a>
+        </div>
+        <div class="section-card">
+            <h2>Enquiry</h2>
+            <p>Handle customer enquiries and requests.</p>
+            <a href="#" class="btn btn-outline">Manage Enquiries</a>
+        </div>
+        <div class="section-card">
+            <h2>Quotation</h2>
+            <p>Create and manage quotations for clients.</p>
+            <a href="#" class="btn btn-outline">View Quotations</a>
+        </div>
+        <div class="section-card">
+            <h2>Booking</h2>
+            <p>Manage bookings and reservations.</p>
+            <a href="#" class="btn btn-outline">Handle Bookings</a>
+        </div>
+        <div class="section-card">
+            <h2>Invoice</h2>
+            <p>Generate and track invoices for clients.</p>
+            <a href="#" class="btn btn-outline">Manage Invoices</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

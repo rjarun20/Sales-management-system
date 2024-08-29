@@ -7,6 +7,11 @@ from .models import Client
 from django.http import JsonResponse
 import random
 import string
+from datetime import datetime
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def generate_client_id():
     while True:
@@ -66,8 +71,12 @@ class DashboardView(SupabaseLoginRequiredMixin, View):
     template_name = 'sales/dashboard.html'
 
     def get(self, request):
+        email = request.session.get('email', '')
+        user_name = email.split('@')[0] if email else 'User'
+
         context = {
-            'email': request.session.get('email', ''),
+            'email': email,
+            'user_name': user_name,
         }
         return render(request, self.template_name, context)
 
@@ -75,19 +84,38 @@ class ClientListView(SupabaseLoginRequiredMixin, View):
     template_name = 'sales/client_list.html'
 
     def get(self, request):
-        response = supabase.table('client').select("*").eq("is_deleted", False).execute()
-        clients = [Client(**client) for client in response.data]
+        try:
+            response = supabase.table('client').select("*").eq("is_deleted", False).execute()
+            if response.data:
+                clients = [Client(**client) for client in response.data]
+            else:
+                clients = []
+                messages.info(request, "No clients found.")
+        except Exception as e:
+            clients = []
+            messages.error(request, f"Error fetching clients: {str(e)}")
+
         return render(request, self.template_name, {'clients': clients})
 
 class ClientDetailView(SupabaseLoginRequiredMixin, View):
     template_name = 'sales/client_detail.html'
 
     def get(self, request, client_id):
-        response = supabase.table('client').select("*").eq("client_id", client_id).execute()
-        if response.data:
-            client = Client(**response.data[0])
-            return render(request, self.template_name, {'client': client})
-        return redirect('client_list')
+        try:
+            response = supabase.table('client').select("*").eq("client_id", client_id).execute()
+            logger.info(f"Supabase response for client {client_id}: {response.data}")
+            
+            if response.data:
+                client = Client(**response.data[0])
+                logger.info(f"Client object: {vars(client)}")
+                return render(request, self.template_name, {'client': client})
+            else:
+                messages.error(request, "Client not found.")
+                return redirect('client_list')
+        except Exception as e:
+            logger.error(f"Error fetching client details: {str(e)}")
+            messages.error(request, f"Error fetching client details: {str(e)}")
+            return redirect('client_list')
 
 class ClientCreateView(SupabaseLoginRequiredMixin, View):
     template_name = 'sales/client_form.html'
@@ -157,10 +185,29 @@ class ClientDeleteView(SupabaseLoginRequiredMixin, View):
     template_name = 'sales/client_confirm_delete.html'
 
     def get(self, request, client_id):
-        response = supabase.table('client').select("*").eq("client_id", client_id).execute()
-        if response.data:
-            client = Client(**response.data[0])
-            return render(request, self.template_name, {'client': client})
+        try:
+            response = supabase.table('client').select("*").eq("client_id", client_id).execute()
+            if response.data:
+                client = Client(**response.data[0])
+                return render(request, self.template_name, {'client': client})
+            else:
+                messages.error(request, "Client not found.")
+                return redirect('client_list')
+        except Exception as e:
+            messages.error(request, f"Error fetching client: {str(e)}")
+            return redirect('client_list')
+
+    def post(self, request, client_id):
+        try:
+            # Instead of deleting, we're setting is_deleted to True
+            response = supabase.table('client').update({"is_deleted": True}).eq("client_id", client_id).execute()
+            if response.data:
+                messages.success(request, "Client successfully deleted.")
+            else:
+                messages.error(request, "Failed to delete client.")
+        except Exception as e:
+            messages.error(request, f"Error deleting client: {str(e)}")
+        
         return redirect('client_list')
 
     def post(self, request, client_id):

@@ -4,16 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Sales Management System{% endblock %}</title>
+    <title>{% block title %}TSV Global Solutions - Sales Management{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Sales Management System</h1>
+            <div id="branding">
+                <img src="{% static 'sales/images/tsv_logo.png' %}" alt="TSV Global Solutions Logo" class="logo">
+                <!-- <h1>TSV Global Solutions</h1>-->
+            </div>
             <nav>
-                <!-- Add navigation items here -->
+                {% if user.is_authenticated %}
+                    <!-- Add navigation items here -->
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% endif %}
             </nav>
         </div>
     </header>
@@ -33,7 +39,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Sales Management System</p>
+            <p>&copy; 2024 TSV Global Solutions - Sales Management System</p>
         </div>
     </footer>
 
