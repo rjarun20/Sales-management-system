@@ -61,7 +61,7 @@ class LoginView(View):
                 messages.success(request, f"Welcome, {user.email}!")
                 return redirect('dashboard')
             else:
-                messages.error(request, "Invalid login credentials.")
+                messages.error(request, "Invalid login credentials. Please try again.")
         except Exception as e:
             messages.error(request, f"Login failed: {str(e)}")
 

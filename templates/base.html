@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}TSV Global Solutions - Sales Management{% endblock %}</title>
+    <title>{% block title %}Sales Management System{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
@@ -13,7 +13,7 @@
         <div class="container">
             <div id="branding">
                 <img src="{% static 'sales/images/tsv_logo.png' %}" alt="TSV Global Solutions Logo" class="logo">
-                <!-- <h1>TSV Global Solutions</h1>-->
+                <h1>Sales Management System</h1>
             </div>
             <nav>
                 {% if user.is_authenticated %}
@@ -25,14 +25,6 @@
     </header>
 
     <main class="container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-
         {% block content %}
         {% endblock %}
     </main>

@@ -9,7 +9,15 @@
 
 {% block content %}
 <div class="login-container">
-    <h2>Sales Management</h2>
+    <h2>Sales Management System</h2>
+    <p>Please login here:</p>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
