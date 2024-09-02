@@ -5,6 +5,19 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'sales/css/client_form.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+<script>
+    var initialState = "{{ client.state|default:'' }}";
+    var initialCity = "{{ client.city|default:'' }}";
+</script>
+<script src="{% static 'sales/js/client_form.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -14,44 +27,63 @@
         {% csrf_token %}
         <div class="form-grid">
             <div class="form-group">
+                <label for="client_id">Client ID:</label>
+                <input type="text" id="client_id" name="client_id" class="form-control" value="{{ client.client_id }}" readonly>
+            </div>
+            <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="{{ client.name|default:'' }}" required>
+                <input type="text" id="name" name="name" class="form-control" value="{{ client.name }}" required>
             </div>
             <div class="form-group">
                 <label for="contact_name">Contact Name:</label>
-                <input type="text" id="contact_name" name="contact_name" value="{{ client.contact_name|default:'' }}">
+                <input type="text" id="contact_name" name="contact_name" class="form-control" value="{{ client.contact_name }}" required>
             </div>
             <div class="form-group">
                 <label for="contact_number">Contact Number:</label>
-                <input type="text" id="contact_number" name="contact_number" value="{{ client.contact_number|default:'' }}">
+                <input type="text" id="contact_number" name="contact_number" class="form-control" value="{{ client.contact_number }}" pattern="\d+" title="Please enter a valid contact number" required>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="{{ client.email|default:'' }}">
+                <input type="email" id="email" name="email" class="form-control" value="{{ client.email }}" required>
             </div>
             <div class="form-group">
                 <label for="address_line1">Address Line 1:</label>
-                <input type="text" id="address_line1" name="address_line1" value="{{ client.address_line1|default:'' }}">
+                <input type="text" id="address_line1" name="address_line1" class="form-control" value="{{ client.address_line1 }}" required>
             </div>
             <div class="form-group">
                 <label for="address_line2">Address Line 2:</label>
-                <input type="text" id="address_line2" name="address_line2" value="{{ client.address_line2|default:'' }}">
+                <input type="text" id="address_line2" name="address_line2" class="form-control" value="{{ client.address_line2 }}">
             </div>
             <div class="form-group">
                 <label for="country">Country:</label>
-                <input type="text" id="country" name="country" value="{{ client.country|default:'' }}">
+                <select id="country" name="country" class="selectpicker form-control" data-live-search="true" required>
+                    <option value="India" selected>India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                    <option value="Japan">Japan</option>
+                    <option value="China">China</option>
+                    <!-- Add other countries as needed -->
+                </select>
             </div>
             <div class="form-group">
                 <label for="state">State:</label>
-                <input type="text" id="state" name="state" value="{{ client.state|default:'' }}">
+                <select id="state" name="state" class="selectpicker form-control" data-live-search="true" required>
+                    <option value="">Select State</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="city">City:</label>
-                <input type="text" id="city" name="city" value="{{ client.city|default:'' }}">
+                <select id="city" name="city" class="selectpicker form-control" data-live-search="true" required>
+                    <option value="">Select City</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="code">Code:</label>
-                <input type="text" id="code" name="code" value="{{ client.code|default:'' }}">
+                <input type="text" id="code" name="code" class="form-control" value="{{ client.code }}" pattern="\d+" title="Please enter a valid code" required>
             </div>
         </div>
         <div class="form-actions">

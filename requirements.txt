@@ -3,3 +3,4 @@ django-cors-headers==4.4.0
 python-dotenv==1.0.1
 supabase==2.7.3
 supafunc==0.5.1
+portalocker==2.10.1

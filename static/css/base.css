@@ -39,6 +39,11 @@ header li {
     padding: 0 20px 0 20px;
 }
 
+#branding {
+    flex: 1;
+}
+
+
 header #branding {
     float: left;
 }
@@ -60,19 +65,6 @@ header .highlight, header .current a {
 header a:hover {
     color: #ffffff;
     font-weight: bold;
-}
-
-.btn {
-    display: inline-block;
-    background: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background: #e8491d;
 }
 
 .login-container {
@@ -169,4 +161,39 @@ header a:hover {
     background-color: #d4edda;
     border-color: #c3e6cb;
     color: #155724;
+}
+
+header .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+nav {
+    flex: 1;
+    text-align: right;
+}
+
+.centered-title {
+    flex-basis: 100%;
+    order: 2;
+}
+
+.logout-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+nav a {
+    margin-left: 15px;
 }

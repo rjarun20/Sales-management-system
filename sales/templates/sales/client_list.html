@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Clients - TSV Global Solutions{% endblock %}
+{% block title %}Client List{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'sales/css/client_list.css' %}">
@@ -9,48 +9,41 @@
 
 {% block content %}
 <div class="client-list-container">
-    <h1>Clients</h1>
-    
-    <div class="actions-bar">
-        <a href="{% url 'client_create' %}" class="btn btn-primary">Add New Client</a>
-        <div class="search-bar">
-            <input type="text" id="clientSearch" placeholder="Search clients...">
-            <button onclick="searchClients()" class="btn btn-secondary">Search</button>
-        </div>
+    <h1>Client List</h1>
+    <div class="actions mb-3">
+        <a href="{% url 'client_create' %}" class="btn btn-primary btn-sm">Add New Client</a>
+        <input type="text" id="clientSearch" onkeyup="searchClients()" placeholder="Search for clients..." class="form-control form-control-sm d-inline-block w-auto ml-2">
     </div>
-
-    <div class="table-responsive">
-        <table id="clientTable">
-            <thead>
-                <tr>
-                    <th>Client ID</th>
-                    <th>Name</th>
-                    <th>Contact Name</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for client in clients %}
-                <tr>
-                    <td>{{ client.client_id }}</td>
-                    <td>{{ client.name }}</td>
-                    <td>{{ client.contact_name }}</td>
-                    <td>{{ client.email }}</td>
-                    <td class="actions">
-                        <a href="{% url 'client_detail' client.client_id %}" class="btn btn-info">View</a>
-                        <a href="{% url 'client_update' client.client_id %}" class="btn btn-warning">Edit</a>
-                        <a href="{% url 'client_delete' client.client_id %}" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">No clients found.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <table id="clientTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Client ID</th>
+                <th>Name</th>
+                <th>Contact Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.client_id }}</td>
+                <td>{{ client.name }}</td>
+                <td>{{ client.contact_name }}</td>
+                <td>{{ client.email }}</td>
+                <td class="actions">
+                    <a href="{% url 'client_detail' client.client_id %}" class="btn btn-info btn-sm">View</a>
+                    <a href="{% url 'client_update' client.client_id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'client_delete' client.client_id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No clients found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
 

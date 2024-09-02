@@ -12,11 +12,11 @@
     <h1>Client Details</h1>
     <div class="client-info">
         <div class="info-section">
-            <h2>Additional Information</h2>
-            <p><strong>Created By:</strong> {{ client.created_by|default:"N/A" }}</p>
-            <p><strong>Created Date:</strong> {% if client.created_date %}{{ client.created_date|date:"F d, Y H:i" }}{% else %}N/A{% endif %}</p>
-            <p><strong>Last Updated By:</strong> {{ client.updated_by|default:"N/A" }}</p>
-            <p><strong>Last Updated Date:</strong> {% if client.updated_date %}{{ client.updated_date|date:"F d, Y H:i" }}{% else %}N/A{% endif %}</p>
+            <h2>Primary Information</h2>
+            <p><strong>Name:</strong> {{ client.name }}</p>
+            <p><strong>Contact Name:</strong> {{ client.contact_name|default:"N/A" }}</p>
+            <p><strong>Contact Number:</strong> {{ client.contact_number|default:"N/A" }}</p>
+            <p><strong>Email:</strong> {{ client.email|default:"N/A" }}</p>
         </div>
         <div class="info-section">
             <h2>Address</h2>
@@ -27,11 +27,11 @@
             <p>{{ client.city }}, {{ client.state }}, {{ client.country }} - {{ client.code }}</p>
         </div>
         <div class="info-section">
-            <h2>Additional Information</h2>
-            <p><strong>Created By:</strong> {{ client.created_by }}</p>
-            <p><strong>Created Date:</strong> {{ client.created_date|date:"F d, Y H:i" }}</p>
-            <p><strong>Last Updated By:</strong> {{ client.updated_by }}</p>
-            <p><strong>Last Updated Date:</strong> {{ client.updated_date|date:"F d, Y H:i" }}</p>
+            <h2>System Information</h2>
+            <p><strong>Created By:</strong> {{ client.created_by|default:"N/A" }}</p>
+            <p><strong>Created Date:</strong> {% if client.created_date %}{{ client.created_date|date:"F d, Y H:i" }}{% else %}N/A{% endif %}</p>
+            <p><strong>Last Updated By:</strong> {{ client.updated_by|default:"N/A" }}</p>
+            <p><strong>Last Updated Date:</strong> {% if client.updated_date %}{{ client.updated_date|date:"F d, Y H:i" }}{% else %}N/A{% endif %}</p>
         </div>
     </div>
     <div class="action-buttons">
